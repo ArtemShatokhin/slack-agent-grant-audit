@@ -1,0 +1,2 @@
+# PyYAML is the only dependency of this open-source audit tool.
+PyYAML>=6.0

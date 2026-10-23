@@ -1,0 +1,62 @@
+# yaml-language-server: $schema=https://kortix.com/schema/kortix.v2.schema.json
+kortix_version: 2
+default_agent: kortix
+
+project:
+  name: ops-slack-agent
+  description: The Slack bot the ops team mentions when a ticket, an invoice or a mailbox needs work.
+
+env:
+  optional: [LINEAR_API_KEY]
+
+agents:
+  kortix:
+    file: agents/kortix.md
+    connectors: [kortix_slack, gmail, linear, github]
+    secrets: none
+    skills: all
+    kortix_permissions: none
+
+connectors:
+  - slug: gmail
+    provider: composio
+    app: gmail
+  - slug: linear
+    provider: composio
+    app: linear
+    sensitive: true
+  - slug: github
+    provider: composio
+    app: github
+    policies:
+      - match: list_*
+        action: always_run
+      - match: "*"
+        action: require_approval
+
+policy:
+  default_mode: risk
+
+policies:
+  # A send is the one call nobody can take back from a thread.
+  - match: gmail.send_email
+    action: block
+  - match: gmail.search_*
+    action: always_run
+  - match: github.delete_repo
+    action: block
+  # Our own tracker is the exception: reading it is how the agent answers at all.
+  - match: linear.list_*
+    action: always_run
+  # An external recipient is never written to without a person, whatever the tool.
+  - match: "*.*"
+    action: require_approval
+    conditions:
+      - arg: to
+        match: "*@"
+      - arg: to
+        match: "*@kortix.com"
+        negate: true
+
+approvals:
+  ttl: 4h

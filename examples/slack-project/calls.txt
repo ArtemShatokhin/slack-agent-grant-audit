@@ -1,0 +1,11 @@
+# Example calls for this open-source audit tool's sample project.
+# one call per line: <connector>.<tool>[=effect] [JSON arguments, for rule conditions]
+kortix_slack.post_message=write
+gmail.search_threads=read
+gmail.send_email=write {"to": "ops@kortix.com"}
+gmail.send_email=write {"to": "customer@example.com"}
+linear.list_issues=read
+linear.create_issue=write
+github.list_pull_requests=read
+github.merge_pr=write
+github.delete_repo=destructive

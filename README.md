@@ -19,7 +19,7 @@ github.merge_pr            write        require_approval  connector github rule 
 github.delete_repo         destructive  block             project rule #3 github.delete_repo -> block
 ```
 
-That is the real output of the example project in `examples/slack-project/` — a Slack bot with `policy.default_mode: risk`, a block on `gmail.send_email`, reads allowed on the tracker, and every held call expiring after `approvals.ttl: 4h`.
+That is the real output of the example project in `examples/slack-project/`, a Slack bot with `policy.default_mode: risk`, a block on `gmail.send_email`, reads allowed on the tracker, and every held call expiring after `approvals.ttl: 4h`.
 
 ## What it resolves, in Kortix's own order
 
@@ -67,12 +67,14 @@ A Slack thread is where the approval has to happen. Kortix posts a card in the t
 
 ## Background
 
-Kortix is an open-source AI Operating System: your agents, skills, company memory and connectors in one git repo you own. Slack is one of its channels — a message in a thread starts a session, the agent works on its own cloud computer, and the answer comes back in the same thread.
+Kortix is an open-source AI Operating System: your agents, their skills, your company memory, and every connector in one git repo you own, with the agents working on real cloud computers. Slack is one of its channels: a message in a thread starts a session, the agent works on its own cloud computer, and the answer comes back in the same thread.
 
 - What an agent in Slack actually is, and what connecting it takes: [agents in Slack](https://agentsinslack.com/)
 - The four `kortix.yaml` blocks a Slack agent lives in, and what a change-request review of the file should catch: [the kortix.yaml behind a Slack agent](https://agentsinslack.com/kortix-yaml-slack-agent)
 - Which calls stop for a person, and how the approval card behaves in a thread: [approval gates for a Slack agent](https://agentsinslack.com/slack-approval-gates)
 - Running the runtime yourself: [a self-hosted Slack agent](https://agentsinslack.com/self-hosted-slack-agent)
+- How the Slack app is connected to a project, command by command: [connecting Slack to a Kortix project](https://agentsinslack.com/slack-agent-setup)
+- How a Slack agent differs from a Slackbot and from an Agentforce agent: [Slack agent vs Slackbot vs Agentforce](https://agentsinslack.com/slack-agent-vs-slackbot-vs-agentforce)
 - The manifest reference this tool implements: [kortix.yaml reference](https://kortix.com/docs/project/manifest)
 
 ## Tests
